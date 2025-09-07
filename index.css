@@ -25,9 +25,15 @@ nav {
 }
 
 main {
+  position: relative;
+  min-height: 400px;
+  padding: 2rem;
   background-color: var(--bg-light);
   color: var(--clr-dark);
-  padding: 2rem;
+  background-image: url("/src/temp-bjorn.png");
+  background-size: contain;
+  background-position: bottom right;
+  background-repeat: no-repeat;
 }
 
 h1 {
