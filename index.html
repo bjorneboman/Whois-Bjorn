@@ -4,41 +4,78 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Min första webbsida</title>
   </head>
   <body>
     <header>
       <h1>Björn Boman - Chas Academy Student</h1>
       <nav>
-        <li><a href="#">About</a></li>
+        <li><a href="#">Whois</a></li>
         <li><a href="#">Portfolio</a></li>
         <li><a href="#">CV</a></li>
-        <li><a href="#">Contakt</a></li>
+        <li><a href="#">Kontakt</a></li>
       </nav>
     </header>
     <main>
       <section id="hero-section">
         <article>
-          <h2>::Student profile::</h2>
+          <h2>Student profile</h2>
           <ul>
             <li>Name: Björn Boman</li>
             <li>
               Call signs: "Björne", "Autonaut", "RonaldRaygun", "Oort Cloud
               Services"
             </li>
-            <li>Course: Fullstack Webdeveloper JavaScript (Chas Extended)</li>
-            <li>Type: Creative</li>
-            <li>Hobbies: Music production, Boardgames</li>
+            <li>Course: Fullstack Webbutveckling JavaScript (Chas Extended)</li>
+            <li>Type: Kreativ</li>
+            <li>Hobbies: Musikproduktion, brädspel</li>
           </ul>
         </article>
         <img src="/src/temp-bjorn.png" alt="Björn Boman" />
       </section>
-      <section id="about-section">
-        <h2>:About me:</h2>
-        <p>
+      <section id="about-section" class="dark-section">
+        <h2>About me</h2>
+        <wrapper class="two-col-layout">
+          <article>
+            <p>
+              Det började smått med en egen startmeny i DOS på pappas 486:a. Det
+              var på mitten av 90-talet, jag var 14 år och ett 14-tums fönster
+              stod öppet framför mina glasögon - ett universum av fängslande
+              problemlösning, och oändliga kreativa möjligheter!",
+            </p>
+            <p>
+              Batch-kommandofiler i MS-DOS blev snart HTML, CSS och JavaScript.
+              Jag fastnade hårt för Flash och ActionScript medan det fortfarande
+              var en grej. Jag hann också med Ruby on Rails, men sen fick
+              kodning tyvärr fortsätta på sparlåga efter några av livets tvära
+              svängar.
+            </p>
+            <p>
+              Men nu är jag tillbaka med en nytänd låga och ett enormt uppdämt
+              behov av att hacka kod igen!
+            </p>
+          </article>
+          <article>
+            <p>
+              Jag hör melodier överallt, även när ingen musik spelas. Alla ljud
+              jag hör och allt jag ser omkring mig är för mig toner, ackord och
+              harmonier. Universum svänger, vi lyssnar och dansar.
+            </p>
+            <p>
+              Jag fastnade för elektronisk musik redan som liten parvel, men
+              före det till och med innan jag själv kommer ihåg - fängslades jag
+              av klassisk orkestral musik! Båda de "mentorerna", och andra jag
+              har värvat genom åren, influerar mig än idag i mitt skapande.',
+            </p>
+          </article>
+        </wrapper>
+      </section>
     </main>
   </body>
 </html>

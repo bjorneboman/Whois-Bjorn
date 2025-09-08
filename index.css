@@ -6,6 +6,22 @@
   --clr-light: #ffffff;
 }
 
+.dark-section {
+  color: var(--clr-light);
+  h2 {
+    max-width: fit-content;
+    border-radius: 0.5rem;
+    background-color: var(--bg-dark);
+  }
+  article {
+    background-color: var(--bg-dark);
+  }
+}
+.light-section {
+  background-color: var(--bg-light);
+  color: var(--clr-dark);
+}
+
 body {
   margin: 0;
   background-color: var(--bg-light);
@@ -80,6 +96,15 @@ article {
     max-height: 400px;
     opacity: 0.5;
   }
+  article {
+    font-family: "consolas", monospace;
+  }
+}
+.two-col-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 2rem;
 }
 
 h1 {
@@ -90,6 +115,11 @@ h2 {
   font-family: "Play";
   font-size: 4rem;
   margin-top: 0;
+}
+h2::before,
+h2::after {
+  content: "::";
+  color: var(--clr-neutral);
 }
 
 /* section {
