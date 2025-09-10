@@ -1,33 +1,25 @@
+/* *************** */
+/* Global settings */
+/* *************** */
+
+/* Standard colors */
 :root {
   --bg-dark: #830222;
   --bg-light: #fff7ee;
   --clr-dark: #002657;
-  --clr-neutral: #585197;
+  --clr-neutral-dark: #585197;
   --clr-light: #ffffff;
+  --clr-neutral-light: #d3d3f5;
 }
 
-.dark-section {
-  color: var(--clr-light);
-  h2 {
-    max-width: fit-content;
-    border-radius: 0.5rem;
-    background-color: var(--bg-dark);
-  }
-  article {
-    background-color: var(--bg-dark);
-  }
-}
-.light-section {
-  background-color: var(--bg-light);
-  color: var(--clr-dark);
-}
+/* Structural elements */
 
 body {
   margin: 0;
   background-color: var(--bg-light);
   color: var(--clr-dark);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 header {
@@ -38,10 +30,6 @@ header {
   h1 {
     text-shadow: 0.2rem 0 0.5rem #00000080;
   }
-}
-
-li {
-  list-style-type: none;
 }
 
 nav {
@@ -75,12 +63,93 @@ section {
   background-color: var(--bg-light);
 }
 
+
+
 article {
   max-width: 100rem;
+  margin: 0;
+  padding-inline: 1rem;
   li {
     margin-block: 0.7rem;
   }
 }
+
+footer {
+  background-color: var(--bg-dark);
+  color: var(--clr-light);
+  text-align: center;
+  padding: 1rem;
+}
+
+/* landmarks */
+
+h1 {
+  font-family: "Play";
+  font-size: 2.5rem;
+}
+h2 {
+  font-family: "Play";
+  font-size: 4rem;
+  margin-top: 0;
+}
+h2::before,
+h2::after {
+  content: "::";
+  color: var(--clr-neutral-dark);
+}
+h3 {
+  margin-top: 0;
+}
+
+li {
+  list-style-type: none;
+
+}
+
+/* Other site-wide classes */
+
+.dark-section {
+  color: var(--clr-light);
+  h2 {
+    max-width: fit-content;
+    padding: 0 10rem 0.5rem 2rem;
+    border-radius: 0.5rem;
+    background-color: var(--bg-dark);
+  }
+  h2::before, h2::after {
+    color: var(--clr-neutral-light);
+  }
+  article {
+    padding-inline: 2rem;
+    padding-block: 1rem;
+    background-color: var(--bg-dark);
+  }
+}
+.light-section {
+  background-color: var(--bg-light);
+  color: var(--clr-dark);
+}
+
+.two-col-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 2rem;
+}
+.three-col-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  /* gap: 2rem; */
+}
+
+.middle-column {
+  border-inline: 1px solid var(--clr-neutral-light);
+
+}
+/* ****************************** */
+/* Specific sections and elements */
+/* ****************************** */
 
 #hero-section {
   min-height: 400px;
@@ -100,82 +169,16 @@ article {
     font-family: "consolas", monospace;
   }
 }
-.two-col-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  gap: 2rem;
-}
 
-h1 {
-  font-family: "Play";
-  font-size: 2.5rem;
-}
-h2 {
-  font-family: "Play";
-  font-size: 4rem;
-  margin-top: 0;
-}
-h2::before,
-h2::after {
-  content: "::";
-  color: var(--clr-neutral);
-}
 
-/* section {
-    margin-bottom: 2rem;
-    background-color: var(--bg-light);
-    color: var(--clr-dark);
-}
 
-article {
-    background-color: var(--bg-light);
-    color: var(--clr-dark);
-    padding: 1rem;
-    border: 1px solid var(--clr-neutral);
-    border-radius: 4px;
-}
+/* Stuff for later, maybe */
 
+/*
 aside {
     background-color: var(--bg-dark);
     color: var(--clr-light);
     padding: 1rem;
-}
-
-footer {
-    background-color: var(--bg-dark);
-    color: var(--clr-light);
-    text-align: center;
-    padding: 1rem;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    color: var(--clr-dark);
-}
-
-p {
-    color: var(--clr-neutral);
-}
-
-
-li {
-    color: var(--clr-neutral);
-}
-
-a {
-    color: var(--clr-dark);
-    text-decoration: none;
-}
-
-a:hover {
-    color: var(--clr-neutral);
-    text-decoration: underline;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
 }
 
 button {
@@ -190,7 +193,8 @@ button {
 input, textarea, select {
     background-color: var(--bg-light);
     color: var(--clr-dark);
-    border: 1px solid var(--clr-neutral);
+    border: 1px solid var(--clr-neutral-dark);
     padding: 0.5rem;
     border-radius: 4px;
-} */
+} 
+*/
