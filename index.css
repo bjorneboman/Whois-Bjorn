@@ -123,6 +123,9 @@ li {
     padding-inline: 2rem;
     padding-block: 1rem;
     background-color: var(--bg-dark);
+    border-radius: 0.5rem;
+    /* min-width: 20rem; */
+    /* max-width: none; */
   }
 }
 .light-section {
@@ -132,14 +135,16 @@ li {
 
 .two-col-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: auto;
+  /* grid-auto-flow: row; */
   gap: 2rem;
 }
 .three-col-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: auto;
+  grid-auto-flow: row;
   /* gap: 2rem; */
 }
 
