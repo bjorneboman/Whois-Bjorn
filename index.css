@@ -61,9 +61,8 @@ section {
   position: relative;
   padding: 2rem;
   background-color: var(--bg-light);
+  
 }
-
-
 
 article {
   max-width: 100rem;
@@ -103,7 +102,7 @@ h3 {
 
 li {
   list-style-type: none;
-
+  
 }
 
 /* Other site-wide classes */
@@ -150,24 +149,30 @@ li {
 
 .middle-column {
   border-inline: 1px solid var(--clr-neutral-light);
-
+  
 }
 /* ****************************** */
 /* Specific sections and elements */
 /* ****************************** */
 
 #hero-section {
-  min-height: 400px;
-  color: var(--clr-dark);
+  min-height: calc(100vh - 11rem);
   display: grid;
   place-items: center;
-  grid-template-columns: 1fr 1fr;
+  padding-bottom: 0;
   grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  background-image: url(./src/eyeinthesky.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: stretch;
+  color: var(--clr-dark);
   h2 {
     font-size: 2rem;
   }
   img {
     max-height: 400px;
+    /* place-self: bottom; */
     opacity: 0.5;
   }
   article {
