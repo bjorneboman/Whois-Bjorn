@@ -28,6 +28,7 @@ header {
   color: var(--clr-light);
   padding: 1rem;
   h1 {
+    margin: -.5rem 0 .5rem 0;
     text-shadow: 0.2rem 0 0.5rem #00000080;
   }
 }
@@ -55,6 +56,11 @@ nav a:hover {
   background-color: var(--bg-light);
   color: var(--clr-dark);
   transition: all 0.3s ease;
+}
+
+main {
+  
+  background-image: url("src/eyeinthesky.png");
 }
 
 section {
@@ -136,7 +142,6 @@ li {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: auto;
-  /* grid-auto-flow: row; */
   gap: 2rem;
 }
 .three-col-layout {
@@ -157,15 +162,14 @@ li {
 
 #hero-section {
   min-height: calc(100vh - 11rem);
-  display: grid;
+  /* display: grid; */
   place-items: center;
   padding-bottom: 0;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr;
-  background-image: url(./src/eyeinthesky.png);
-  background-position: center;
+  /* grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr; */
+  /* background-position: center;
   background-repeat: no-repeat;
-  background-size: stretch;
+  background-size: stretch; */
   color: var(--clr-dark);
   h2 {
     font-size: 2rem;
