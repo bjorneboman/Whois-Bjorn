@@ -5,7 +5,7 @@
 /* Standard colors */
 :root {
   --bg-dark: #830222;
-  --bg-light: #fff7eeb0;
+  --bg-light: #f2faffd7;
   /* --bg-light: #ffeed3; */
   --clr-dark: #002657;
   --clr-neutral-dark: #585197;
@@ -54,7 +54,7 @@ nav a {
   font-weight: bold;
 }
 nav a:hover {
-  background-color: var(--bg-light);
+  background-color: var(--clr-light);
   color: var(--clr-dark);
   transition: all 0.3s ease;
 }
