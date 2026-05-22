@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Intro Sequence Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<style>
+  /* ─── Reset & Base ─────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:     #0d0d0d;
+    --paper:   #f2ede6;
+    --accent:  #c8502a;
+    --mid:     #7a7060;
+    --dur-draw:    1.4s;
+    --dur-morph:   0.9s;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--ink);
+    overflow: hidden;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--paper);
+  }
+
+  /* ─── Accessibility ─────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    #intro { display: none !important; }
+    body { overflow: auto; background: var(--paper); color: var(--ink); }
+    .site { opacity: 1 !important; }
+    header, .hero, .grid-section { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     INTRO OVERLAY
+  ══════════════════════════════════════════════════════════ */
+  #intro {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ink);
+    /* Step 5: Intro exits — fade out after full sequence */
+    animation: intro-exit 0.7s var(--ease-out-expo) forwards 5.2s;
+    pointer-events: none; /* allow clicks through once fading */
+  }
+
+  @keyframes intro-exit {
+    to { opacity: 0; visibility: hidden; }
+  }
+
+  /* SVG scene */
+  .intro-svg {
+    width: min(420px, 80vw);
+    overflow: visible;
+    view-transition-name: main-mark;
+  }
+
+  /* ── SVG path draw-on ─────────────────────────────────── */
+  /* Outer diamond frame */
+  .path-diamond {
+    fill: none;
+    stroke: var(--paper);
+    stroke-width: 1.2;
+    stroke-dasharray: 560;
+    stroke-dashoffset: 560;
+    animation: draw-path var(--dur-draw) var(--ease-out-expo) forwards 0.2s;
+  }
+
+  /* Inner mark / monogram strokes */
+  .path-mark-1 {
+    fill: none;
+    stroke: var(--paper);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: draw-path 0.9s var(--ease-out-expo) forwards 1.2s;
+  }
+  .path-mark-2 {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 140;
+    stroke-dashoffset: 140;
+    animation: draw-path 0.7s var(--ease-out-expo) forwards 1.8s;
+  }
+  .path-mark-3 {
+    fill: none;
+    stroke: var(--paper);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 160;
+    stroke-dashoffset: 160;
+    animation: draw-path 0.8s var(--ease-out-expo) forwards 2.2s;
+  }
+
+  /* Accent dot */
+  .dot-accent {
+    fill: var(--accent);
+    opacity: 0;
+    animation: dot-pop 0.4s var(--ease-out-expo) forwards 2.8s;
+  }
+
+  /* Tagline text beneath SVG */
+  .intro-tagline {
+    position: absolute;
+    bottom: calc(50% - 200px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    letter-spacing: 0.35em;
+    color: var(--mid);
+    white-space: nowrap;
+    opacity: 0;
+    animation: rise-in 0.8s var(--ease-out-expo) forwards 3.0s;
+  }
+
+  @keyframes draw-path {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes dot-pop {
+    0%   { opacity: 0; transform: scale(0); }
+    60%  { opacity: 1; transform: scale(1.4); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes rise-in {
+    from { opacity: 0; transform: translate(-50%, 12px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
+  }
+
+  /* ── Horizontal rule wipe ─────────────────────────────── */
+  .intro-rule {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 1px;
+    background: var(--mid);
+    animation: rule-wipe 1.2s var(--ease-out-expo) forwards 3.6s;
+  }
+  @keyframes rule-wipe {
+    to { width: min(420px, 80vw); }
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     SITE LAYOUT (lives under the intro from the start)
+  ══════════════════════════════════════════════════════════ */
+  .site {
+    min-height: 100vh;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    /* revealed once intro exits */
+    opacity: 0;
+    animation: site-reveal 0.6s ease forwards 5.4s;
+  }
+  @keyframes site-reveal {
+    to { opacity: 1; }
+  }
+
+  /* ── Header ──────────────────────────────────────────── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    opacity: 0;
+    animation: header-settle 0.8s var(--ease-out-expo) forwards 5.6s;
+  }
+  @keyframes header-settle {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .header-logo {
+    /* This SVG shares view-transition-name with intro SVG,
+       so with startViewTransition it morphs from center → here */
+    view-transition-name: main-mark;
+    width: 44px;
+    height: 44px;
+  }
+  .header-logo svg { width: 100%; height: 100%; }
+
+  nav {
+    display: flex;
+    gap: 2.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--mid);
+  }
+  nav a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--accent); }
+
+  /* ── Hero ─────────────────────────────────────────────── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 88vh;
+    opacity: 0;
+    animation: hero-settle 1s var(--ease-out-expo) forwards 5.9s;
+  }
+  @keyframes hero-settle {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem;
+    gap: 1.5rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--ink);
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--mid);
+    max-width: 36ch;
+    line-height: 1.65;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.25em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 4px;
+    width: fit-content;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .hero-cta:hover { color: var(--accent); border-color: var(--accent); }
+
+  .hero-visual {
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Large decorative mark in hero — shares the same SVG geometry */
+  .hero-mark {
+    width: 60%;
+    opacity: 0.08;
+  }
+
+  .hero-accent-line {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 40%;
+    background: var(--accent);
+    transform: translateY(-50%);
+  }
+
+  /* ── Work grid ───────────────────────────────────────── */
+  .grid-section {
+    padding: 6rem 4rem;
+    opacity: 0;
+    animation: grid-settle 1s var(--ease-out-expo) forwards 6.3s;
+  }
+  @keyframes grid-settle {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: var(--mid);
+    margin-bottom: 3rem;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .work-card {
+    aspect-ratio: 4/3;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .work-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+  .work-card:hover::after { transform: scaleX(1); }
+
+  .card-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: var(--paper);
+    opacity: 0.4;
+    z-index: 1;
+    transition: opacity 0.3s;
+  }
+  .work-card:hover .card-label { opacity: 1; }
+
+  /* Noise grain overlay on cards */
+  .work-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── View Transition: mark travels from center to header ─ */
+  @keyframes vt-mark-old {
+    to {
+      transform: translate(-50vw, -50vh) scale(0.1);
+      opacity: 0;
+    }
+  }
+  @keyframes vt-mark-new {
+    from {
+      transform: translate(50vw, 50vh) scale(8);
+      opacity: 0;
+    }
+  }
+  ::view-transition-old(main-mark) {
+    animation: vt-mark-old 0.9s var(--ease-out-expo) forwards;
+  }
+  ::view-transition-new(main-mark) {
+    animation: vt-mark-new 0.9s var(--ease-out-expo) forwards;
+  }
+
+  /* ─── Responsive ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    header { padding: 1.5rem 2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { min-height: 40vw; }
+    .hero-text { padding: 4rem 2rem; }
+    .grid-section { padding: 4rem 2rem; }
+    .work-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     INTRO OVERLAY
+══════════════════════════════════════ -->
+<div id="intro" aria-hidden="true">
+
+  <!-- The SVG mark: this same geometry is echoed in header + hero -->
+  <svg class="intro-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Outer diamond frame: draws first -->
+    <polygon
+      class="path-diamond"
+      points="100,8 192,100 100,192 8,100"
+    />
+
+    <!-- Monogram / mark: three strokes drawing in sequence -->
+    <!-- Left vertical with serif -->
+    <polyline class="path-mark-1" points="72,65 72,135 72,135 80,135"/>
+    <!-- Diagonal accent -->
+    <line class="path-mark-2" x1="72" y1="100" x2="128" y2="65"/>
+    <!-- Right arm -->
+    <polyline class="path-mark-3" points="128,65 128,135 120,135"/>
+
+    <!-- Accent dot: pops in last -->
+    <circle class="dot-accent" cx="128" cy="65" r="4"/>
+
+  </svg>
+
+  <div class="intro-rule"></div>
+  <p class="intro-tagline">Design &amp; Motion</p>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SITE (lives beneath intro from load)
+══════════════════════════════════════ -->
+<div class="site">
+
+  <header>
+    <!-- Matching logo mark — view-transition-name links it to the intro SVG -->
+    <div class="header-logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polygon stroke="#0d0d0d" stroke-width="1.5" points="100,8 192,100 100,192 8,100"/>
+        <polyline stroke="#0d0d0d" stroke-width="2.5" stroke-linecap="round" points="72,65 72,135 80,135"/>
+        <line stroke="#c8502a" stroke-width="2.5" stroke-linecap="round" x1="72" y1="100" x2="128" y2="65"/>
+        <polyline stroke="#0d0d0d" stroke-width="2.5" stroke-linecap="round" points="128,65 128,135 120,135"/>
+        <circle fill="#c8502a" cx="128" cy="65" r="4"/>
+      </svg>
+    </div>
+
+    <nav>
+      <a href="#">Work</a>
+      <a href="#">About</a>
+      <a href="#">Process</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Portfolio — 2026</p>
+      <h1 class="hero-title">
+        Motion<br>
+        &amp; <em>Form</em><br>
+        in CSS
+      </h1>
+      <p class="hero-sub">
+        Crafting interfaces where animation is structure — not decoration. Every transition earns its place.
+      </p>
+      <a href="#" class="hero-cta">View Selected Work →</a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-accent-line"></div>
+      <!-- Echo of the mark, large and ghosted -->
+      <svg class="hero-mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <polygon stroke="#f2ede6" stroke-width="1" points="100,8 192,100 100,192 8,100"/>
+        <polyline stroke="#f2ede6" stroke-width="1.5" stroke-linecap="round" points="72,65 72,135 80,135"/>
+        <line stroke="#c8502a" stroke-width="1.5" stroke-linecap="round" x1="72" y1="100" x2="128" y2="65"/>
+        <polyline stroke="#f2ede6" stroke-width="1.5" stroke-linecap="round" points="128,65 128,135 120,135"/>
+        <circle fill="#c8502a" cx="128" cy="65" r="4"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="grid-section">
+    <p class="section-label">Selected Work</p>
+    <div class="work-grid">
+      <div class="work-card"><span class="card-label">Brand Identity</span></div>
+      <div class="work-card"><span class="card-label">Motion Design</span></div>
+      <div class="work-card"><span class="card-label">Web Experience</span></div>
+    </div>
+  </section>
+
+</div>
+
+
+<script>
+  /*
+   * One small JS call — triggers the View Transition API
+   * so the mark morphs from intro center → header corner.
+   * All animation is still handled by CSS.
+   */
+  const intro = document.getElementById('intro');
+
+  // Wait for intro animation to finish (matches intro-exit delay: 5.2s)
+  setTimeout(() => {
+    if (!document.startViewTransition) return; // fallback: CSS handles it anyway
+
+    document.startViewTransition(() => {
+      // The transition fires: CSS ::view-transition-old/new take over
+      // No DOM changes needed — the view-transition-name does the work
+    });
+  }, 5200);
+
+  // Re-enable scroll after intro
+  setTimeout(() => {
+    document.body.style.overflow = 'auto';
+  }, 6000);
+</script>
+
+</body>
+</html>
