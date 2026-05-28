@@ -1,14 +1,13 @@
 <html>
     <head>
         <style>
-            #glitchy-bjorn {
+            /* #glitchy-bjorn {
                 width: 200px;
-                height: 265px;
-                border: 1px solid blue;
-            }
+                height: 266px;
+            } */
             #bjorn {
                 width: 200px;
-                height: 265px;
+                height: 266px;
                 border: 1px solid red;
             }
         </style>
@@ -17,23 +16,52 @@
         <canvas id="glitchy-bjorn">
 
         </canvas>
-        <img id="bjorn" src="./src/temp-bjorn.png" alt="Profile image of Björn">
+        <!-- <img id="bjorn" src="./src/temp-bjorn-200.png" alt="Profile image of Björn"> -->
         <script>
-            function draw() {
-                const canvas = document.getElementById("glitchy-bjorn")
-                const ctx = canvas.getContext("2d")
-                const img = new Image()
-                img.src = "/src/temp-bjorn.png"
-                img.addEventListener("load", (e) => {
-                    ctx.drawImage(img, 
-                        // 0, 0, 200, 265,
-                        0, 0, 200, 265
-                    )
-                })
-            }
-                
-            draw()
+            const canvas = document.getElementById("glitchy-bjorn")
+            canvas.width = 240
+            canvas.height = 266
+            const ctx = canvas.getContext("2d")
+            
+            const img = new Image()
+            img.src = "./src/temp-bjorn-200.png"
 
+            ctx.drawImage(img, 0, 0, 200, canvas.height, 20, 0, 200, canvas.height)
+            
+            function draw(startRow, height) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                for(let row = 0; row < canvas.height; row+=3){
+                    let shift = 20
+                    if(row >= startRow && row < (startRow + height)) shift = Math.floor(Math.random() * 40)
+                    ctx.drawImage(img, 0, row, 200, 3, shift, row, 200, 3)
+                }
+            }
+            
+            let startTime = null
+            let glitchPause = 0
+            
+            function frame(timestamp){
+                if(!startTime) startTime = timestamp
+                const elapsed = timestamp - startTime
+                
+                let glitchHeight = 0
+                let glitchStartRow = canvas.height
+
+                if(elapsed > glitchPause){
+                    glitchHeight = Math.floor(Math.random()*100)
+                    glitchStartRow = Math.floor(Math.random()*(canvas.height - glitchHeight))
+                    
+                    glitchPause = Math.floor(Math.random()*1000)
+                    startTime = null
+                }
+                
+                draw(glitchStartRow, glitchHeight)
+
+                requestAnimationFrame(frame)
+            }
+
+            requestAnimationFrame(frame)
+                
         </script>
     </body>
 </html>
