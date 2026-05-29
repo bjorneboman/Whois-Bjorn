@@ -186,6 +186,8 @@ li {
   article {
     font-family: "consolas", monospace;
   }
+  #glitchy-bjorn {
+    opacity: 0.7;
 }
 
 
