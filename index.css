@@ -5,7 +5,8 @@
 /* Standard colors */
 :root {
   --bg-dark: #830222;
-  --bg-light: #fff7ee;
+  --bg-light: #f2faffd7;
+  /* --bg-light: #ffeed3; */
   --clr-dark: #002657;
   --clr-neutral-dark: #585197;
   --clr-light: #ffffff;
@@ -16,7 +17,7 @@
 
 body {
   margin: 0;
-  background-color: var(--bg-light);
+  /* background-color: var(--bg-light); */
   color: var(--clr-dark);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
   Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -28,6 +29,7 @@ header {
   color: var(--clr-light);
   padding: 1rem;
   h1 {
+    margin: -.5rem 0 .5rem 0;
     text-shadow: 0.2rem 0 0.5rem #00000080;
   }
 }
@@ -52,18 +54,24 @@ nav a {
   font-weight: bold;
 }
 nav a:hover {
-  background-color: var(--bg-light);
+  background-color: var(--clr-light);
   color: var(--clr-dark);
   transition: all 0.3s ease;
+}
+
+main {  
+  background-image: url("./src/eyeinthesky.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 section {
   position: relative;
   padding: 2rem;
   background-color: var(--bg-light);
+  
 }
-
-
 
 article {
   max-width: 100rem;
@@ -103,7 +111,7 @@ h3 {
 
 li {
   list-style-type: none;
-
+  
 }
 
 /* Other site-wide classes */
@@ -123,6 +131,9 @@ li {
     padding-inline: 2rem;
     padding-block: 1rem;
     background-color: var(--bg-dark);
+    border-radius: 0.5rem;
+    /* min-width: 20rem; */
+    /* max-width: none; */
   }
 }
 .light-section {
@@ -132,42 +143,51 @@ li {
 
 .two-col-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: auto;
   gap: 2rem;
 }
 .three-col-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: auto;
+  grid-auto-flow: row;
   /* gap: 2rem; */
 }
 
 .middle-column {
   border-inline: 1px solid var(--clr-neutral-light);
-
+  
 }
 /* ****************************** */
 /* Specific sections and elements */
 /* ****************************** */
 
 #hero-section {
-  min-height: 400px;
-  color: var(--clr-dark);
-  display: grid;
+  min-height: calc(100vh - 11rem);
+  /* display: grid; */
   place-items: center;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  padding-bottom: 0;
+  /* grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr; */
+  /* background-position: center;
+  background-repeat: no-repeat;
+  background-size: stretch; */
+  color: var(--clr-dark);
   h2 {
     font-size: 2rem;
   }
   img {
     max-height: 400px;
-    opacity: 0.5;
+    /* place-self: bottom; */
+    opacity: 0.7;
+    /* filter: hue-rotate(300deg); */
   }
   article {
     font-family: "consolas", monospace;
   }
+  #glitchy-bjorn {
+    opacity: 0.7;
 }
 
 
